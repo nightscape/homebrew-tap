@@ -1,9 +1,9 @@
 class KineticMerge < Formula
   desc "Merge a heavily refactored codebase and stay sane"
   homepage "https://github.com/sageserpent-open/kineticMerge"
-  url "https://github.com/sageserpent-open/kineticMerge/releases/download/v1.6.9/kinetic-merge"
+  url "https://github.com/sageserpent-open/kineticMerge/releases/download/v1.6.10/kinetic-merge"
 
-  sha256 "a8453167f5704d9a133fe0eff2b2b86b4d8356e8d16b2e708a4940c501d095fd"
+  sha256 "ae34acd6f95fb6e8688b2f020fbded62af84b84348d46cd06caaa2cc150170fa"
 
   license "MIT"
 
