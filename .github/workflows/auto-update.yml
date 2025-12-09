@@ -7,7 +7,7 @@ on:
     types: [published]
 
 jobs:
-  update-tap:
+  update-formulae:
     runs-on: macos-latest
     steps:
       - name: Checkout tap
@@ -15,22 +15,24 @@ jobs:
 
       - name: Update formulae
         uses: dawidd6/action-homebrew-bump-formula@v5
-        if: ${{ hashFiles('Formula/*.rb') }}
-        with:
-          token: ${{secrets.TOKEN}}
-          tap: ${{ github.repository }}
-          livecheck: true
-          user_name: "Martin Mauch"
-          user_email: "martin.mauch@gmail.com"
-          force: false
-
-      - name: Update casks
-        uses: dawidd6/action-homebrew-bump-formula@v5
-        if: ${{ hashFiles('Casks/*.rb') }}
         with:
           token: ${{ secrets.TOKEN }}
           tap: ${{ github.repository }}
           livecheck: true
           user_name: "Martin Mauch"
           user_email: "martin.mauch@gmail.com"
+          force: false
+
+  update-casks:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout tap
+        uses: actions/checkout@v4
+
+      - name: Update casks
+        uses: macauley/action-homebrew-bump-cask@v1
+        with:
+          token: ${{ secrets.TOKEN }}
+          tap: ${{ github.repository }}
+          livecheck: true
           force: false
