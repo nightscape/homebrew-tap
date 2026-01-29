@@ -1,6 +1,6 @@
 cask "kiln" do
-  version "0.23.0"
-  sha256 "3cfae347f890a14c676dc97b97d6a099c31b0243ae9156ba8f030b32898a3d43"
+  version "0.24.0"
+  sha256 "805b29cb34a4009e5e64f7719d4343771b9a9557a5c9eed7f83f9a017d5c8ef6"
 
   url "https://github.com/Kiln-AI/Kiln/releases/download/v#{version}/Kiln.MacOS.AppleSilicon.M-Processor.dmg",
       verified: "github.com/Kiln-AI/Kiln/"
