@@ -6,8 +6,38 @@ on:
   release:
     types: [published]
 
+concurrency:
+  group: auto-update
+  cancel-in-progress: true
+
 jobs:
+  cleanup-stale-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete stale bump branches without open PRs
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          set -euo pipefail
+
+          open_pr_branches=$(gh api --paginate \
+            "repos/${{ github.repository }}/pulls?state=open&per_page=100" \
+            --jq '.[].head.ref')
+
+          gh api "repos/${{ github.repository }}/branches" --paginate \
+            --jq '.[].name | select(startswith("bump-"))' \
+          | while IFS= read -r branch; do
+            if echo "$open_pr_branches" | grep -qxF "$branch"; then
+              echo "Keeping branch: $branch (has open PR)"
+            else
+              echo "Deleting stale branch: $branch (no open PR)"
+              gh api -X DELETE \
+                "repos/${{ github.repository }}/git/refs/heads/$branch" || true
+            fi
+          done
+
   update-formulae:
+    needs: cleanup-stale-branches
     runs-on: macos-latest
     steps:
       - name: Checkout tap
@@ -24,6 +54,7 @@ jobs:
           force: false
 
   update-casks:
+    needs: cleanup-stale-branches
     runs-on: macos-latest
     steps:
       - name: Checkout tap

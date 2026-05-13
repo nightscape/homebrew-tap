@@ -32,4 +32,9 @@ jobs:
         if: github.event.pull_request.head.repo.fork == false
         env:
           BRANCH: ${{ github.event.pull_request.head.ref }}
-        run: git push --delete origin "${BRANCH}"
+        run: |
+          if git ls-remote --exit-code --heads origin "${BRANCH}" >/dev/null 2>&1; then
+            git push --delete origin "${BRANCH}"
+          else
+            echo "Branch ${BRANCH} does not exist on origin; skipping delete."
+          fi
