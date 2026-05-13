@@ -18,17 +18,21 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.TOKEN }}
         run: |
-          open_pr_branches=$(gh pr list --repo "${{ github.repository }}" \
-            --state open --json headRefName --jq '.[].headRefName' 2>/dev/null || true)
+          set -euo pipefail
+
+          open_pr_branches=$(gh api --paginate \
+            "repos/${{ github.repository }}/pulls?state=open&per_page=100" \
+            --jq '.[].head.ref')
+
           gh api "repos/${{ github.repository }}/branches" --paginate \
-            --jq '.[].name | select(startswith("bump-"))' 2>/dev/null \
+            --jq '.[].name | select(startswith("bump-"))' \
           | while IFS= read -r branch; do
             if echo "$open_pr_branches" | grep -qxF "$branch"; then
               echo "Keeping branch: $branch (has open PR)"
             else
               echo "Deleting stale branch: $branch (no open PR)"
               gh api -X DELETE \
-                "repos/${{ github.repository }}/git/refs/heads/$branch" 2>/dev/null || true
+                "repos/${{ github.repository }}/git/refs/heads/$branch" || true
             fi
           done
 
