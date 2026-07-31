@@ -41,13 +41,13 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout tap
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Trust tap
         run: brew trust ${{ github.repository }}
 
       - name: Update formulae
-        uses: dawidd6/action-homebrew-bump-formula@v5
+        uses: dawidd6/action-homebrew-bump-formula@3428a0601bba3173ec0bdcc945be23fa27aa4c31 # v5
         with:
           token: ${{ secrets.TOKEN }}
           tap: ${{ github.repository }}
@@ -61,13 +61,13 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout tap
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Trust tap
         run: brew trust ${{ github.repository }}
 
       - name: Update casks
-        uses: eugenesvk/action-homebrew-bump-cask@a05fd49892799eade237259963d787ba0143dab1
+        uses: eugenesvk/action-homebrew-bump-cask@a05fd49892799eade237259963d787ba0143dab1 # 3.8.5
         with:
           token: ${{ secrets.TOKEN }}
           tap: ${{ github.repository }}
