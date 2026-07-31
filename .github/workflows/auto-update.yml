@@ -47,7 +47,7 @@ jobs:
         run: brew trust ${{ github.repository }}
 
       - name: Update formulae
-        uses: dawidd6/action-homebrew-bump-formula@3428a0601bba3173ec0bdcc945be23fa27aa4c31 # v5
+        uses: dawidd6/action-homebrew-bump-formula@a0e064e08103c01870c6d1b05168d1b726aab119 # v8
         with:
           token: ${{ secrets.TOKEN }}
           tap: ${{ github.repository }}
@@ -67,7 +67,7 @@ jobs:
         run: brew trust ${{ github.repository }}
 
       - name: Update casks
-        uses: eugenesvk/action-homebrew-bump-cask@a05fd49892799eade237259963d787ba0143dab1 # 3.8.5
+        uses: eugenesvk/action-homebrew-bump-cask@6b066272df85c164f0496877387ecc8d989a194f # 3.8.6
         with:
           token: ${{ secrets.TOKEN }}
           tap: ${{ github.repository }}
