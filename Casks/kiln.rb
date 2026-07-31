@@ -13,7 +13,7 @@ cask "kiln" do
     strategy :GithubReleases
   end
 
-  depends_on macos: ">= :catalina"
+  depends_on macos: :catalina
 
   app "Kiln.app"
 

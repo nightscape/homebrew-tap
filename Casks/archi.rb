@@ -7,5 +7,7 @@ cask "archi" do
   desc "Open Source modelling toolkit for creating ArchiMate models and sketches"
   homepage "https://www.archimatetool.com/"
 
+  depends_on :macos
+
   app "Archi.app"
 end

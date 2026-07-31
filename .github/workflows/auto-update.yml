@@ -43,6 +43,9 @@ jobs:
       - name: Checkout tap
         uses: actions/checkout@v4
 
+      - name: Trust tap
+        run: brew trust ${{ github.repository }}
+
       - name: Update formulae
         uses: dawidd6/action-homebrew-bump-formula@v5
         with:
@@ -59,6 +62,9 @@ jobs:
     steps:
       - name: Checkout tap
         uses: actions/checkout@v4
+
+      - name: Trust tap
+        run: brew trust ${{ github.repository }}
 
       - name: Update casks
         uses: eugenesvk/action-homebrew-bump-cask@a05fd49892799eade237259963d787ba0143dab1
