@@ -71,5 +71,5 @@ jobs:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
         run: |
           git config --global user.name "Martin Mauch"
-          git config --global user.email "martin.mauch@gmail.com"
+          git config --global user.email "martin@mauch.dev"
           brew bump --open-pr --no-fork --casks --tap ${{ github.repository }}
