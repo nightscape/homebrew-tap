@@ -53,7 +53,7 @@ jobs:
           tap: ${{ github.repository }}
           livecheck: true
           user_name: "Martin Mauch"
-          user_email: "martin.mauch@gmail.com"
+          user_email: "martin@mauch.dev"
           force: false
 
   update-casks:
@@ -67,9 +67,10 @@ jobs:
         run: brew trust ${{ github.repository }}
 
       - name: Update casks
-        uses: eugenesvk/action-homebrew-bump-cask@6b066272df85c164f0496877387ecc8d989a194f # 3.8.6
-        with:
-          token: ${{ secrets.TOKEN }}
-          tap: ${{ github.repository }}
-          livecheck: true
-          force: false
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          git config --global user.name "Martin Mauch"
+          git config --global user.email "martin@mauch.dev"
+          brew tap ${{ github.repository }}
+          brew bump --open-pr --no-fork --casks --tap ${{ github.repository }}
